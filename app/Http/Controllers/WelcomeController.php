@@ -11,6 +11,7 @@ class WelcomeController extends Controller
      */
     public function welcome()
     {
+        //$url = parse_url(getenv("CLEARDB_DATABASE_URL"));
         return view('welcome');
     }
 }
