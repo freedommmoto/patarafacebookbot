@@ -20,7 +20,7 @@ class UsersTableSeeder extends Seeder
         $userRole = Role::whereName('User')->first();
 
         // Seed test admin
-        $seededAdminEmail = 'admin@admin.com';
+        $seededAdminEmail = 'admin';
         $user = User::where('email', '=', $seededAdminEmail)->first();
         if ($user === null) {
             $user = User::create([
@@ -28,7 +28,7 @@ class UsersTableSeeder extends Seeder
                 'first_name'                     => $faker->firstName,
                 'last_name'                      => $faker->lastName,
                 'email'                          => $seededAdminEmail,
-                'password'                       => Hash::make('password'),
+                'password'                       => Hash::make('admin'),
                 'token'                          => str_random(64),
                 'activated'                      => true,
                 'signup_confirmation_ip_address' => $faker->ipv4,

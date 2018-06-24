@@ -17,7 +17,7 @@ class CreateProfilesTable extends Migration
             $table->increments('id');
             $table->integer('user_id')->unsigned()->index();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->string('theme_id')->unsigned()->default(1);
+            $table->integer('theme_id')->unsigned()->default(1);
             $table->foreign('theme_id')->references('id')->on('themes');
             $table->string('location')->nullable();
             $table->text('bio')->nullable();
