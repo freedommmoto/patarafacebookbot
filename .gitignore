@@ -32,7 +32,7 @@ Homestead.yaml
 Homestead.json
 
 ### Master Configs ###
-.env
+#.env
 #composer.lock
 
 ### Assets ###
