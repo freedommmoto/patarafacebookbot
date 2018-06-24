@@ -15,7 +15,12 @@
 */
 
 // Homepage Route
-Route::get('/', 'WelcomeController@welcome')->name('welcome');
+//Route::get('/', 'WelcomeController@welcome')->name('welcome');
+
+
+Route::get('/', function () {
+    return redirect('/login');
+});
 
 // Authentication Routes
 Auth::routes();

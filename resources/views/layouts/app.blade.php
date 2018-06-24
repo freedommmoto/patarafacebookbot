@@ -8,10 +8,10 @@
         {{-- CSRF Token --}}
         <meta name="csrf-token" content="{{ csrf_token() }}">
 
-        <title>@if (trim($__env->yieldContent('template_title')))@yield('template_title') | @endif {{ config('app.name', Lang::get('titles.app')) }}</title>
+        <title>{{Lang::get('titles.app')}}</title>
         <meta name="description" content="">
-        <meta name="author" content="Jeremy Kenedy">
-        <link rel="shortcut icon" href="/favicon.ico">
+        <meta name="author" content="PATARA">
+        <link rel="shortcut icon" href="{{asset('/images/cropped-favicon-32x32.png')}}">
 
         {{-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries --}}
         <!--[if lt IE 9]>
@@ -24,6 +24,7 @@
 
         {{-- Styles --}}
         <link href="{{ mix('/css/app.css') }}" rel="stylesheet">
+        <link href="{{ asset('/css/custom.css') }}" rel="stylesheet">
 
         @yield('template_linked_css')
 
@@ -32,7 +33,7 @@
 
             @if (Auth::User() && (Auth::User()->profile) && (Auth::User()->profile->avatar_status == 0))
                 .user-avatar-nav {
-                    background: url({{ Gravatar::get(Auth::user()->email) }}) 50% 50% no-repeat;
+                    background: url({{ /*Gravatar::get(*/Auth::user()->username/*)*/ }}) 50% 50% no-repeat;
                     background-size: auto 100%;
                 }
             @endif
@@ -82,6 +83,19 @@
         @endif
 
         @yield('footer_scripts')
+
+        <style>
+            @if (Request::is('login'))
+            body{
+                 background-image: url('{{asset('/images/team.jpg')}}');
+                 background-size:cover ;
+                 width: 100%;
+                 height: 100%;
+                 background-repeat: no-repeat;
+             }
+            @endif
+        </style>
+
 
     </body>
 </html>

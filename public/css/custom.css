@@ -1,0 +1,12 @@
+#login-card{
+  max-width: 550px;
+  margin: auto;
+  margin-top: 10%;
+}
+.logo{
+  width: 150px;
+  height: auto;
+}
+.alert-danger{
+  width: 100%;
+}

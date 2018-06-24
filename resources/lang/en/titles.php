@@ -2,7 +2,7 @@
 
 return [
 
-    'app'               => 'Laravel',
+    'app'               => 'FacekbookBot',
     'app2'              => 'Auth :version',
     'home'              => 'Home',
     'login'             => 'Login',
