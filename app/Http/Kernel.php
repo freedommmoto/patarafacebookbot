@@ -34,7 +34,7 @@ class Kernel extends HttpKernel
             \Illuminate\Session\Middleware\StartSession::class,
             // \Illuminate\Session\Middleware\AuthenticateSession::class,
             \Illuminate\View\Middleware\ShareErrorsFromSession::class,
-            //\App\Http\Middleware\VerifyCsrfToken::class, so we don’t get TokenMismatchError on every request
+            //\App\Http\Middleware\VerifyCsrfToken::class, //so we don’t get TokenMismatchError on every request
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
         ],
         'api' => [
