@@ -10,3 +10,7 @@
 .alert-danger{
   width: 100%;
 }
+.g-recaptcha{
+  width: 220px;
+  margin: 0 auto;
+}
