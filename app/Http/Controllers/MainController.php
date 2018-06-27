@@ -13,11 +13,13 @@ class MainController extends Controller
         $data = $request->all();
         if (isset($data["entry"])) {
             Log::info('all data entry ' . print_r($data["entry"], true));
-            //get the user’s id
-            $id = $data["entry"][0]["messaging"][0]["sender"]["id"];
-            $this->sendTextMessage($id, "Hello");
-        } else {
-            echo 'no data receive';
+
+            if (isset($data["entry"][0]["messaging"])) {
+                //get the user’s id
+                $id = $data["entry"][0]["messaging"][0]["sender"]["id"];
+                $this->sendTextMessage($id, "Hello");
+            }
+
         }
     }
 

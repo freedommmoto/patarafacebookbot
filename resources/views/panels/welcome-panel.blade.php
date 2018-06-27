@@ -15,106 +15,108 @@
         Welcome {{ Auth::user()->name }}
 
         @role('admin', true)
-            <span class="pull-right badge badge-primary" style="margin-top:4px">
+        <span class="pull-right badge badge-primary" style="margin-top:4px">
                 Admin Access
             </span>
         @else
             <span class="pull-right badge badge-warning" style="margin-top:4px">
                 User Access
             </span>
-        @endrole
+            @endrole
 
     </div>
     <div class="card-body">
         <h2 class="lead">
-            {{ trans('auth.loggedIn') }}
+
+            <button type="button" class="btn btn-success">Add New Bot</button>
+
         </h2>
-        <p>
-            <em>Thank you</em> for checking this project out. <strong>Please remember to star it!</strong>
-        </p>
-        <p>
-            <iframe src="https://ghbtns.com/github-btn.html?user=jeremykenedy&repo=laravel-auth&type=star&count=true" frameborder="0" scrolling="0" width="170px" height="20px" style="margin: 0px 0 -3px .5em;"></iframe>
-        </p>
-        <p>
-            This page route is protected by <code>activated</code> middleware. Only accounts with activated emails are able pass this middleware.
-        </p>
-        <p>
-            <small>
-                Users registered via Social providers are by default activated.
-            </small>
-        </p>
 
-        <hr>
+        <table class="table table-striped table-sm data-table">
+            <caption id="user_count">
+                5 user total
+            </caption>
+            <thead class="thead">
+            <tr>
+                <th>ID</th>
+                <th>Username</th>
+                <th class="hidden-xs">Email</th>
+                <th class="hidden-xs">First Name</th>
+                <th class="hidden-xs">Last Name</th>
+                <th>Role</th>
+                <th class="hidden-sm hidden-xs hidden-md">Created</th>
+                <th class="hidden-sm hidden-xs hidden-md">Updated</th>
+                <th>Actions</th>
+                <th class="no-search no-sort"></th>
+                <th class="no-search no-sort"></th>
+            </tr>
+            </thead>
 
-        <p>
-            You have
-                <strong>
-                    @role('admin')
-                       Admin
-                    @endrole
-                    @role('user')
-                       User
-                    @endrole
-                </strong>
-            Access
-        </p>
+            <tbody id="users_table">
+            <tr>
+                <td>1</td>
+                <td>admin</td>
+                <td class="hidden-xs"><a href="mailto:admin" title="email admin">admin</a></td>
+                <td class="hidden-xs">Letitia</td>
+                <td class="hidden-xs">Hilpert</td>
+                <td><span class="badge badge-warning">Admin</span></td>
+                <td class="hidden-sm hidden-xs hidden-md">2018-06-24 13:57:37</td>
+                <td class="hidden-sm hidden-xs hidden-md">2018-06-24 13:57:37</td>
+                <td>
+                    <form method="POST" action="http://localhost:8000/users/1" accept-charset="UTF-8"
+                          data-toggle="tooltip" title="" data-original-title="Delete">
+                        <input name="_token" type="hidden" value="PGQZYh149aYgV5mINbeWIYIv4Tw3miX2bsdpDtjG"> <input
+                                name="_method" type="hidden" value="DELETE">
+                        <button type="button" data-toggle="modal" data-target="#confirmDelete" data-title="Delete User"
+                                data-message="Are you sure you want to delete this user ?" class="btn btn-danger btn-sm"
+                                style="width: 100%;">
+                            <i aria-hidden="true" class="fa fa-trash-o fa-fw"></i> <span class="hidden-xs hidden-sm">Delete</span><span
+                                    class="hidden-xs hidden-sm hidden-md"> User</span></button>
+                    </form>
+                </td>
+                <td><a href="http://localhost:8000/users/1/edit" data-toggle="tooltip" title=""
+                       class="btn btn-sm btn-info btn-block" data-original-title="Edit">
+                        <i aria-hidden="true" class="fa fa-pencil fa-fw"></i> <span
+                                class="hidden-xs hidden-sm">Edit</span><span
+                                class="hidden-xs hidden-sm hidden-md"> User</span></a></td>
+            </tr>
+            </tbody>
+            <tbody id="search_results"></tbody>
+            <tbody id="search_results"></tbody>
+        </table>
 
-        <hr>
-
-        <p>
-            You have access to {{ $levelAmount }}:
-            @level(5)
-                <span class="badge badge-primary margin-half">5</span>
-            @endlevel
-
-            @level(4)
-                <span class="badge badge-info margin-half">4</span>
-            @endlevel
-
-            @level(3)
-                <span class="badge badge-success margin-half">3</span>
-            @endlevel
-
-            @level(2)
-                <span class="badge badge-warning margin-half">2</span>
-            @endlevel
-
-            @level(1)
-                <span class="badge badge-default margin-half">1</span>
-            @endlevel
-        </p>
 
         @role('admin')
 
-            <hr>
+        <hr>
 
-            <p>
-                You have permissions:
-                @permission('view.users')
-                    <span class="badge badge-primary margin-half margin-left-0">
+        <p>
+            You have permissions:
+            @permission('view.users')
+            <span class="badge badge-primary margin-half margin-left-0">
                         {{ trans('permsandroles.permissionView') }}
                     </span>
-                @endpermission
+            @endpermission
 
-                @permission('create.users')
-                    <span class="badge badge-info margin-half margin-left-0">
+            @permission('create.users')
+            <span class="badge badge-info margin-half margin-left-0">
                         {{ trans('permsandroles.permissionCreate') }}
                     </span>
-                @endpermission
+            @endpermission
 
-                @permission('edit.users')
-                    <span class="badge badge-warning margin-half margin-left-0">
+            @permission('edit.users')
+            <span class="badge badge-warning margin-half margin-left-0">
                         {{ trans('permsandroles.permissionEdit') }}
                     </span>
-                @endpermission
+            @endpermission
 
-                @permission('delete.users')
-                    <span class="badge badge-danger margin-half margin-left-0">
+            @permission('delete.users')
+            <span class="badge badge-danger margin-half margin-left-0">
                         {{ trans('permsandroles.permissionDelete') }}
                     </span>
-                @endpermission
+            @endpermission
 
-            </p>
+        </p>
 
         @endrole
 
