@@ -16,6 +16,9 @@
 
 // Homepage Route
 //Route::get('/', 'WelcomeController@welcome')->name('welcome');
+Route::get('/', function () {
+    return redirect('/login');
+});
 
 
 //route for verification
@@ -24,9 +27,7 @@ Route::get("/trivia", "MainController@receive")->middleware("verify");
 Route::post("/trivia", "MainController@receive");
 
 
-Route::get('/', function () {
-    return redirect('/login');
-});
+
 
 // Authentication Routes
 Auth::routes();

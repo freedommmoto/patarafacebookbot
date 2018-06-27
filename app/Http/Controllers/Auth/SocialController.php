@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Input;
 use jeremykenedy\LaravelRoles\Models\Role;
 use Laravel\Socialite\Facades\Socialite;
+use Illuminate\Support\Facades\Log;
 
 class SocialController extends Controller
 {
@@ -25,8 +26,10 @@ class SocialController extends Controller
             return view('pages.status')
                 ->with('error', trans('socials.noProvider'));
         }
-
-        return Socialite::driver($provider)->redirect();
+        $scopes = ["user_friends","publish_actions, manage_pages", "publish_pages"];
+        Log::info(' getSocialRedirect  '.print_r($provider,true));
+        Log::info(' scopes  '.print_r($scopes,true));
+        return Socialite::driver($provider)->scopes($scopes)->redirect();
     }
 
     public function getSocialHandle($provider)
