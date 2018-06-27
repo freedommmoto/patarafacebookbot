@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "9919fd209efcc2a8fd48d42cbabb0a10",
+    "content-hash": "9e529b2888a6cf3392a26912e47c3fcb",
     "packages": [
         {
             "name": "barryvdh/laravel-debugbar",
@@ -73,6 +73,77 @@
                 "webprofiler"
             ],
             "time": "2018-05-03T18:27:04+00:00"
+        },
+        {
+            "name": "casperlaitw/laravel-fb-messenger",
+            "version": "v1.6.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/CasperLaiTW/laravel-fb-messenger.git",
+                "reference": "fefbd2f7da6584b6f410f420bc21035abb568cf6"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/CasperLaiTW/laravel-fb-messenger/zipball/fefbd2f7da6584b6f410f420bc21035abb568cf6",
+                "reference": "fefbd2f7da6584b6f410f420bc21035abb568cf6",
+                "shasum": ""
+            },
+            "require": {
+                "guzzlehttp/guzzle": "^6.0",
+                "illuminate/broadcasting": "~5.1",
+                "illuminate/console": "~5.1",
+                "illuminate/queue": "~5.1",
+                "illuminate/routing": "~5.1",
+                "illuminate/support": "~5.1",
+                "illuminate/view": "~5.1",
+                "php": ">=5.6.4"
+            },
+            "require-dev": {
+                "fzaninotto/faker": "^1.6",
+                "mockery/mockery": "^0.9.5",
+                "nesbot/carbon": "^1.21",
+                "phpunit/phpunit": "~5.0",
+                "satooshi/php-coveralls": "dev-master"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.4.x-dev"
+                },
+                "laravel": {
+                    "providers": [
+                        "Casperlaitw\\LaravelFbMessenger\\LaravelFbMessengerServiceProvider"
+                    ],
+                    "aliases": {
+                        "Menu": "Casperlaitw\\LaravelFbMessenger\\Facades\\MessengerMenu"
+                    }
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Casperlaitw\\LaravelFbMessenger\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Casper Lai",
+                    "email": "casper.lai@sleepingdesign.com",
+                    "role": "Developer"
+                }
+            ],
+            "description": "A Laravel Package to Integrate Facebook Messenger API",
+            "homepage": "https://github.com/casperlaitw/laravel-fb-messenger",
+            "keywords": [
+                "Messenger",
+                "chatbot",
+                "facebook",
+                "laravel"
+            ],
+            "time": "2018-02-05T04:42:24+00:00"
         },
         {
             "name": "creativeorange/gravatar",
