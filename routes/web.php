@@ -14,6 +14,10 @@
 |
 */
 
+Route::match(['get', 'post'], '/botman', 'BotManController@handle');
+Route::get('/botman/tinker', 'BotManController@tinker');
+
+
 // Homepage Route
 //Route::get('/', 'WelcomeController@welcome')->name('welcome');
 Route::get('/', function () {
