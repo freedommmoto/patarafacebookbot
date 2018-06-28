@@ -35,7 +35,7 @@
                                                         <div id="avatar_container">
                                                             <div class="collapseOne card-collapse collapse @if($user->profile->avatar_status == 0) show @endif">
                                                                 <div class="card-body">
-                                                                    <img src="{{  Gravatar::get($user->email) }}" alt="{{ $user->name }}" class="user-avatar">
+                                                                    <img src="{{  $user->email }}" alt="{{ $user->name }}" class="user-avatar">
                                                                 </div>
                                                             </div>
                                                             <div class="collapseTwo card-collapse collapse @if($user->profile->avatar_status == 1) show @endif">
@@ -85,6 +85,7 @@
                                                             @endif
                                                         </div>
                                                     </div>
+                                                <!--
                                                     <div class="form-group has-feedback {{ $errors->has('location') ? ' has-error ' : '' }}">
                                                         {!! Form::label('location', trans('profile.label-location') , array('class' => 'col-12 control-label')); !!}
                                                         <div class="col-12">
@@ -97,6 +98,7 @@
                                                             @endif
                                                         </div>
                                                     </div>
+                                                    -->
                                                     <div class="form-group has-feedback {{ $errors->has('bio') ? ' has-error ' : '' }}">
                                                         {!! Form::label('bio', trans('profile.label-bio') , array('class' => 'col-12 control-label')); !!}
                                                         <div class="col-12">
