@@ -33,7 +33,7 @@ class BotManController extends Controller
      */
     public function startConversation(BotMan $bot)
     {
-        Log::info('BotManController handle'.print_r($bot,true));
+        //Log::info('BotManController handle'.print_r($bot,true));
         $bot->startConversation(new ExampleConversation());
     }
 }

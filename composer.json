@@ -34,8 +34,8 @@
         "socialiteproviders/instagram": "^3.0",
         "socialiteproviders/twitch": "^3.0",
         "socialiteproviders/youtube": "^3.0",
-        "symfony/http-foundation": "v4.0.9"
-    },
+        "symfony/http-foundation": "v4.0.1"
+},
     "require-dev": {
         "filp/whoops": "^2.0",
         "fzaninotto/faker": "^1.4",
