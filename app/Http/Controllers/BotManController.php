@@ -85,7 +85,6 @@ class BotManController extends Controller
     }
 
     /**
-     * Loaded through routes/botman.php
      * @param  BotMan $bot
      */
     public function genericTemplate($bot)
@@ -103,7 +102,7 @@ class BotManController extends Controller
                         ->subtitle($tmp['subtitle'])
                         ->image($tmp['imageUrl'])
                         ->addButton(ElementButton::create('visit')->url($tmp['visitURL']))
-                        ->addButton(ElementButton::create($tmp['detailsPostback'])->payload('tellmemore')->type('postback'));
+                        ->addButton(ElementButton::create($tmp['detailsPostback'])->payload('payload_'.$tmp->id)->type('postback'));
             }
 
             $bot->reply(GenericTemplate::create()

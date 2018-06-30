@@ -1,5 +1,7 @@
 <?php
 use App\Http\Controllers\BotManController;
+use App\Models\Cards;
+
 $botman = resolve('botmanfacebook');
 
 /*
@@ -19,3 +21,8 @@ $botman->hears('test', function ($bot) {
 });
 
 $botman->hears('card', BotManController::class . '@GenericTemplate');
+
+$botman->hears('payload_{id}', function ($bot, $id) {
+    $cards = Cards::where('id', $id)->first();
+    $bot->reply($cards->subtitle.', '.$cards->detailsPostback);
+});

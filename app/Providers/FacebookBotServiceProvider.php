@@ -39,9 +39,9 @@ class FacebookBotServiceProvider extends ServiceProvider
             $request = app('request');
             $data = $request->all();
             Log::info('new data');
+            log::info(print_r($data["entry"],true));
 
             if (isset($data["entry"])) {
-                //Log::info('entry = ' . print_r($data["entry"], true));
 
                 if (isset($data["entry"])) {
                     $recipient = $data["entry"][0]['messaging'][0]['recipient']['id'];
@@ -61,4 +61,8 @@ class FacebookBotServiceProvider extends ServiceProvider
             return $botman;
         });
     }
+
+
+
+
 }
