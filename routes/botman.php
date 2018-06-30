@@ -12,7 +12,7 @@ $botman->hears('Hi', function ($bot) {
 */
 
 
-$botman->hears('Hi', BotManController::class . '@sendWelcomeMessages');
+$botman->hears('Hi', BotManController::class . '@GenericTemplate');
 $botman->hears('Start conversation', BotManController::class . '@startConversation');
 $botman->hears('info', BotManController::class . '@exampleGenericTemplate');
 
