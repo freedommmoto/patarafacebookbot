@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use BotMan\BotMan\BotMan;
+//use BotMan\BotMan\BotMan;
+
+use App\Providers\FacebookBotServiceProvider;
 use Illuminate\Http\Request;
 use App\Conversations\ExampleConversation;
 use Illuminate\Support\Facades\Log;
@@ -12,15 +14,17 @@ use BotMan\Drivers\Facebook\Extensions\ElementButton;
 use BotMan\Drivers\Facebook\Extensions\GenericTemplate;
 use BotMan\Drivers\Facebook\Extensions\Element;
 
+use BotMan\BotMan\Storages\Drivers\FileStorage;
+
 class BotManController extends Controller
 {
     /**
      * Place your BotMan logic here.
      */
-    public function handle()
+    public function handle(Request $request)
     {
-        $botman = app('botman');
-        Log::info('BotManController handle');
+        //$botman = app('botman');
+        $botman = app('botmanfacebook');
         $botman->listen();
     }
 
@@ -46,7 +50,7 @@ class BotManController extends Controller
      * Loaded through routes/botman.php
      * @param  BotMan $bot
      */
-    public function GenericTemplate(BotMan $bot)
+    public function exampleGenericTemplate(BotMan $bot)
     {
         $bot->reply(GenericTemplate::create()
             ->addImageAspectRatio(GenericTemplate::RATIO_SQUARE)
@@ -66,4 +70,29 @@ class BotManController extends Controller
             ])
         );
     }
+
+    /**
+     * Loaded through routes/botman.php
+     * @param  BotMan $bot
+     */
+    public function genericTemplate(BotMan $bot)
+    {
+        //title , subtitle , imageUrl , visitURL , detailsPostback
+        $genericTemplates = new genericTemplate();
+        $elementList = [];
+        foreach ($genericTemplates as $key => $tmp){
+            $elementList[$key] =
+                Element::create($tmp['title'])
+                    ->subtitle($tmp['subtitle'])
+                    ->image($tmp['imageUrl'])
+                    ->addButton(ElementButton::create('visit')->url($tmp['visitURL']))
+                    ->addButton(ElementButton::create($tmp['detailsPostback'])->payload('tellmemore')->type('postback'));
+        }
+
+        $bot->reply(GenericTemplate::create()
+            ->addImageAspectRatio(GenericTemplate::RATIO_SQUARE)
+            ->addElements($elementList)
+        );
+    }
+
 }

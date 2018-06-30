@@ -175,6 +175,7 @@ return [
         BotMan\BotMan\BotManServiceProvider::class,
         BotMan\Studio\Providers\StudioServiceProvider::class,
 
+        App\Providers\FacebookBotServiceProvider::class,
     ],
 
     /*
