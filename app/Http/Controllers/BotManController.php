@@ -15,6 +15,7 @@ use BotMan\Drivers\Facebook\Extensions\GenericTemplate;
 use BotMan\Drivers\Facebook\Extensions\Element;
 
 use BotMan\BotMan\Storages\Drivers\FileStorage;
+use App\Models\Bots;
 
 class BotManController extends Controller
 {
@@ -40,7 +41,7 @@ class BotManController extends Controller
      * Loaded through routes/botman.php
      * @param  BotMan $bot
      */
-    public function startConversation(BotMan $bot)
+    public function startConversation($bot)
     {
         //Log::info('BotManController handle'.print_r($bot,true));
         $bot->startConversation(new ExampleConversation());
@@ -50,8 +51,19 @@ class BotManController extends Controller
      * Loaded through routes/botman.php
      * @param  BotMan $bot
      */
-    public function exampleGenericTemplate(BotMan $bot)
+    public function sendWelcomeMessages($bot)
     {
+        $botDetils = Bots::where('id', config('page_id'))->first();
+        $bot->reply($botDetils->greeting_text);
+    }
+
+    /**
+     * Loaded through routes/botman.php
+     * @param  BotMan $bot
+     */
+    public function exampleGenericTemplate($bot)
+    {
+        $bot->reply('Welcome to codeboxx. How can i help you? ');
         $bot->reply(GenericTemplate::create()
             ->addImageAspectRatio(GenericTemplate::RATIO_SQUARE)
             ->addElements([
@@ -75,7 +87,7 @@ class BotManController extends Controller
      * Loaded through routes/botman.php
      * @param  BotMan $bot
      */
-    public function genericTemplate(BotMan $bot)
+    public function genericTemplate($bot)
     {
         //title , subtitle , imageUrl , visitURL , detailsPostback
         $genericTemplates = new genericTemplate();

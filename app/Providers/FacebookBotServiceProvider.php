@@ -38,6 +38,7 @@ class FacebookBotServiceProvider extends ServiceProvider
             $default_config = config('botman', []);
             $request = app('request');
             $data = $request->all();
+            Log::info('new data');
 
             if (isset($data["entry"])) {
                 //Log::info('entry = ' . print_r($data["entry"], true));
@@ -45,7 +46,7 @@ class FacebookBotServiceProvider extends ServiceProvider
                 if (isset($data["entry"])) {
                     $recipient = $data["entry"][0]['messaging'][0]['recipient']['id'];
                     $botDetails = Bots::where('page_key_id', $recipient)->first();
-                    config(['page_user_id' => $recipient]);
+                    config(['page_user_id' => $recipient, 'page_id' => $botDetails->id]);
 
                     // check $request to detect if you need to change default parameters
                     // == SET your new config
