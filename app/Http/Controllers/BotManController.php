@@ -55,7 +55,11 @@ class BotManController extends Controller
     public function sendWelcomeMessages($bot)
     {
         $botDetils = Bots::where('id', config('bot_id'))->first();
-        $bot->reply($botDetils->greeting_text);
+        if (!empty($botDetils->greeting_text)) {
+            $bot->reply($botDetils->greeting_text);
+        } else {
+            $bot->reply('Welcome to codeboxx. How can i help you? ');
+        }
     }
 
     /**
@@ -90,8 +94,7 @@ class BotManController extends Controller
     public function genericTemplate($bot)
     {
         $cardsDetils = Cards::where('bot_id', config('bot_id'))->limit(env("MAX_CARDS"))->get();
-
-        $bot->reply('Welcome to codeboxx. How can i help you? ');
+        $this->sendWelcomeMessages($bot);
         //Log::info(print_r($cardsDetils,true));
 
         if (!empty($cardsDetils)) {
@@ -102,7 +105,7 @@ class BotManController extends Controller
                         ->subtitle($tmp['subtitle'])
                         ->image($tmp['imageUrl'])
                         ->addButton(ElementButton::create('visit')->url($tmp['visitURL']))
-                        ->addButton(ElementButton::create($tmp['detailsPostback'])->payload('payload_'.$tmp->id)->type('postback'));
+                        ->addButton(ElementButton::create($tmp['detailsPostback'])->payload('payload_' . $tmp->id)->type('postback'));
             }
 
             $bot->reply(GenericTemplate::create()

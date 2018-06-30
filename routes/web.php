@@ -66,7 +66,17 @@ Route::group(['middleware' => ['auth', 'activated', 'activity']], function () {
 Route::group(['middleware' => ['auth', 'activated', 'activity', 'twostep']], function () {
 
     //  Homepage Route - Redirect based on user role is in controller.
-    Route::get('/home', ['as' => 'public.home',   'uses' => 'UserController@index']);
+    //Route::get('/home', ['as' => 'public.home',   'uses' => 'UserController@index']);
+    Route::get('/home', function () {
+        return redirect('/bots');
+    });
+
+    Route::resource('bots', 'BotsManagementController', [
+        'names' => [
+            'index'   => 'bot',
+            'destroy' => 'bot.destroy',
+        ],
+    ]);
 
     // Show users profile - viewable by other users.
     Route::get('profile/{username}', [

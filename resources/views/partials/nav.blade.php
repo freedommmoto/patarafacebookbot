@@ -72,6 +72,11 @@
                             <a class="dropdown-item {{ Request::is('profile/'.Auth::user()->name, 'profile/'.Auth::user()->name . '/edit') ? 'active' : null }}" href="{{ url('/profile/'.Auth::user()->name) }}">
                                 @lang('titles.profile')
                             </a>
+
+                            <a class="dropdown-item {{ Request::is('bots') ? 'active' : null }}"  href="{{ url('/bots') }}">
+                                @lang('Bots Dashboard')
+                            </a>
+
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item" href="{{ route('logout') }}"
                                onclick="event.preventDefault();
