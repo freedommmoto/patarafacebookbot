@@ -1,7 +1,5 @@
 <?php
 use App\Http\Controllers\BotManController;
-use Illuminate\Support\Facades\Log;
-
 $botman = resolve('botmanfacebook');
 
 /*
@@ -11,14 +9,13 @@ $botman->hears('Hi', function ($bot) {
 });
 */
 
-$botman->hears('1', function ($bot) {
-    //Log::info('BotManController handle'.print_r(,true));
-    $bot->reply('2');
+
+$botman->hears('Hi', BotManController::class . '@sendWelcomeMessages');
+$botman->hears('Start conversation', BotManController::class . '@startConversation');
+$botman->hears('info', BotManController::class . '@exampleGenericTemplate');
+
+$botman->hears('test', function ($bot) {
+    $bot->reply('ok');
 });
 
-
-
-
-$botman->hears('Hi', BotManController::class.'@sendWelcomeMessages');
-$botman->hears('Start conversation', BotManController::class.'@startConversation');
-$botman->hears('info', BotManController::class.'@exampleGenericTemplate');
+$botman->hears('card', BotManController::class . '@GenericTemplate');

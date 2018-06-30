@@ -16,6 +16,7 @@ use BotMan\Drivers\Facebook\Extensions\Element;
 
 use BotMan\BotMan\Storages\Drivers\FileStorage;
 use App\Models\Bots;
+use App\Models\Cards;
 
 class BotManController extends Controller
 {
@@ -53,7 +54,7 @@ class BotManController extends Controller
      */
     public function sendWelcomeMessages($bot)
     {
-        $botDetils = Bots::where('id', config('page_id'))->first();
+        $botDetils = Bots::where('id', config('bot_id'))->first();
         $bot->reply($botDetils->greeting_text);
     }
 
@@ -89,22 +90,27 @@ class BotManController extends Controller
      */
     public function genericTemplate($bot)
     {
-        //title , subtitle , imageUrl , visitURL , detailsPostback
-        $genericTemplates = new genericTemplate();
-        $elementList = [];
-        foreach ($genericTemplates as $key => $tmp){
-            $elementList[$key] =
-                Element::create($tmp['title'])
-                    ->subtitle($tmp['subtitle'])
-                    ->image($tmp['imageUrl'])
-                    ->addButton(ElementButton::create('visit')->url($tmp['visitURL']))
-                    ->addButton(ElementButton::create($tmp['detailsPostback'])->payload('tellmemore')->type('postback'));
-        }
+        $cardsDetils = Cards::where('bot_id', config('bot_id'))->limit(env("MAX_CARDS"))->get();
 
-        $bot->reply(GenericTemplate::create()
-            ->addImageAspectRatio(GenericTemplate::RATIO_SQUARE)
-            ->addElements($elementList)
-        );
+        $bot->reply('Welcome to codeboxx. How can i help you? ');
+        //Log::info(print_r($cardsDetils,true));
+
+        if (!empty($cardsDetils)) {
+            $elementList = [];
+            foreach ($cardsDetils as $key => $tmp) {
+                $elementList[$key] =
+                    Element::create($tmp['title'])
+                        ->subtitle($tmp['subtitle'])
+                        ->image($tmp['imageUrl'])
+                        ->addButton(ElementButton::create('visit')->url($tmp['visitURL']))
+                        ->addButton(ElementButton::create($tmp['detailsPostback'])->payload('tellmemore')->type('postback'));
+            }
+
+            $bot->reply(GenericTemplate::create()
+                ->addImageAspectRatio(GenericTemplate::RATIO_SQUARE)
+                ->addElements($elementList)
+            );
+        }
     }
 
 }
