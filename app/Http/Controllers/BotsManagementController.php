@@ -76,7 +76,7 @@ class BotsManagementController extends Controller
         ]);
 
         $bots->save();
-        return redirect('bots')->with('success', trans('cess'));
+        return redirect('bots')->with('success', trans('Success'));
         //return redirect('bots/' . $bots->id)->with('success', trans('bots.createSuccess'));
     }
 
@@ -151,15 +151,10 @@ class BotsManagementController extends Controller
      */
     public function destroy($id)
     {
-        $default = Bots::findOrFail(1);
         $bots = Bots::findOrFail($id);
-
-        if ($bots->id != $default->id) {
-            $bots->delete();
-
+        if ($bots->delete()) {
             return redirect('bots')->with('success', trans('Delete Bot Success'));
         }
-
-        return back()->with('error', trans('Delete Bot Success'));
+        return back()->with('error', trans('Delete Bot Not Success'));
     }
 }

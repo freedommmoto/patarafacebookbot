@@ -42,31 +42,35 @@ class FacebookBotServiceProvider extends ServiceProvider
             Log::info('new data token = ' . $lastPart);
 
             if (isset($data["entry"])) {
-                //log::info(print_r($data["entry"],true));
 
                 if (isset($data["entry"])) {
-                    $recipient = $data["entry"][0]['messaging'][0]['recipient']['id'];
-
                     //$botDetails = Bots::where('page_key_id', $recipient)->first();
                     $botDetails = Bots::where('internal_token', $lastPart)->first();
+                    if(empty($botDetails)){
+                        Log::info("wrong internal_token ");
+                    }
+
 
                     try {
                         $verify_token = '';
-                        if ($botDetails['verify_token'] !== $verify_token) {
+                        if ($botDetails->verify_token !== $verify_token) {
                             //case request is wrong verify_token
                         }
 
+                        $recipient = $data["entry"][0]['messaging'][0]['recipient']['id'];
                         if ((!empty($recipient) && $botDetails->page_key_id < 1)) {
                             //save page_key_id
                             $botDetails->page_key_id = $recipient;
                             $botDetails->save();
                         }
+
+                        config(['bot_id' => $botDetails->id]);
                     } catch (\Exception $e) {
                         //
                     }
 
 
-                    config(['page_id' => $recipient, 'bot_id' => $botDetails->id]);
+                    Log::info("bot_id =".$botDetails->id);
                     // check $request to detect if you need to change default parameters
                     // == SET your new config
                     $default_config['facebook']['token'] = $botDetails->token;

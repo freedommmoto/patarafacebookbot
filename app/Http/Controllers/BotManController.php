@@ -94,6 +94,10 @@ class BotManController extends Controller
     public function genericTemplate($bot)
     {
         $cardsDetils = Cards::where('bot_id', config('bot_id'))->limit(env("MAX_CARDS"))->get();
+        if (!empty($cardsDetils)) {
+            //for test
+            $cardsDetils = Cards::where('bot_id', 1)->limit(env("MAX_CARDS"))->get();
+        }
         $this->sendWelcomeMessages($bot);
         //Log::info(print_r($cardsDetils,true));
 
