@@ -45,6 +45,8 @@ Homestead.json
 /vendor
 packages/
 
+.discovery/
+
 # Debug Files
 npm-debug.log
 yarn-error.log
