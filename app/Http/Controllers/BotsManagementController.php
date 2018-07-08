@@ -113,7 +113,7 @@ class BotsManagementController extends Controller
             'callbackUrl' => 'https://patarafacebookbot.herokuapp.com/botman/' . $bot->internal_token,
         ];
 
-        return view('botsmanagement.edit-theme')->with($data);
+        return view('botsmanagement.edit-bot')->with($data);
     }
 
     /**
@@ -129,8 +129,7 @@ class BotsManagementController extends Controller
         $bots = Bots::find($id);
 
 
-        $input = Input::only('page_name', 'page_key_id', 'token', 'greeting_text');
-
+        $input = Input::only('token', 'greeting_text', 'verify_token');
         $validator = Validator::make($input, Bots::rules($id));
 
         if ($validator->fails()) {
