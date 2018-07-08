@@ -31,20 +31,39 @@
     <div class="container">
         <div class="row">
 
+
             <ol>
                 <li>
                     Click on the <strong>Add New Bot</strong> in the left menu for start install bot.
                 </li>
                 <li>
-                    <p>Copy Call back Url and save it in Webhooks your app for start useding bot
+                    After you copy <strong>Callback URL</strong> go to your facebook app.
                 </li>
+                <li>Click the <strong>Setup Webhooks</strong> button under the <strong>Webhooks</strong> section and
+                    enter
+                    the following information:
+                    <ul>
+                        <li><strong>Callback URL</strong> - This is the URL provided on the Facebook Messenger
+                            integration page
+                        </li>
+                        <li><strong>Verify Token</strong> - This is the token you created</li>
+                        <li>Check the <strong>messages</strong> and <strong>messaging_postbacks</strong> options under
+                            <strong>Subscription Fields</strong></li>
+                    </ul>
+                </li>
+                <li><p>Click the <strong>Verify and Save</strong> button.</p>
+                    <!--
+                    <p><img src="https://dialogflow.com/docs/images/integrations/facebook/004-facebook.png" alt=""
+                            class="screenshot"></p></li>
+                            -->
             </ol>
+
 
             <div class="col-12">
 
                 {{ trans('Totel Bot:') }} <strong>{{ count($bots) }}</strong> {{ trans('') }}
 
-                <a href="/bots/create" class="btn btn-outline-secondary btn-sm pull-right mb-2">
+                <a href="/bots/create" class="btn btn-success btn-sm pull-right mb-2">
                     <i class="fa fa-fw fa-plus" aria-hidden="true"></i>
                     {{ trans('Add New Bot') }}
                 </a>
@@ -53,48 +72,41 @@
                     <table class="table table-striped table-sm data-table">
                         <thead class="thead-dark">
                         <tr>
-                            {{-- <th>ID</th> --}}
                             <th>{{ trans('No.') }}</th>
                             <th>{{ trans('Page Page ID') }}</th>
-                            <th>{{ trans('Bot for Page Name') }}</th>
+                        <!--<th>{{ trans('Facebook Page Name') }}</th>-->
+                            <th>{{ trans('Url Token') }}</th>
                             <th>{{ trans('welcome text') }}</th>
-                            <th class="hidden-xs hidden-sm hidden-md">{{ trans('botsLink') }}</th>
-                            <th>{{ trans('Actions') }}</th>
                             <!--<th></th>-->
                             <th></th>
-                            <th></th>
+                            <th>{{ trans('Actions') }}</th>
                         </tr>
                         </thead>
                         <tbody>
                         @foreach($bots as $key => $abot)
                             @php
-                                $themeStatus = [
-                                    'name'  => trans('Disabled'),
-                                    'class' => 'danger'
-                                ];
-                                if($abot->status == 1) {
+                                if(empty($abot->page_key_id)) $abot->page_key_id = ' - ';
+                                if(empty($abot->page_name)) $abot->page_name = ' - ';
                                     $themeStatus = [
-                                        'name'  => trans('Enabled'),
-                                        'class' => 'success'
+                                        'name'  => trans('Disabled'),
+                                        'class' => 'danger'
                                     ];
-                                }
+                                    if($abot->status == 1) {
+                                        $themeStatus = [
+                                            'name'  => trans('Enabled'),
+                                            'class' => 'success'
+                                        ];
+                                    }
                             @endphp
                             <tr>
                                 <td>{{$key+1}}</td>
-                            <!--
-                                    <td>
-                                        <span class="label label-{{ $themeStatus['class'] }}">
-                                            {{ $themeStatus['name'] }}
-                                    </span>
-                                </td>
--->
-
                                 <td>
                                         <span class="label " style="margin-left: 6px">
                                             {{ $abot->page_key_id }}
                                         </span>
                                 </td>
-                                <td>{{$abot->page_name}}</td>
+                                <td>{{$abot->internal_token}}</td>
+                            <!--<td>{{$abot->page_name}}</td>-->
                                 <td>{{$abot->greeting_text}}</td>
 
                             <!--
@@ -107,11 +119,12 @@
                                     -->
 
                                 <td>
-                                    <a class="btn btn-sm btn-info btn-block"
+                                    <a class="btn btn-sm btn-info btn-block btn_edit"
                                        href="{{ URL::to('bots/' . $abot->id . '/edit') }}" data-toggle="tooltip"
-                                       title="{{ trans('BtnEdit') }}">
+                                       title="{{ trans('Edit') }}"
+                                    >
                                         <i class="fa fa-pencil fa-fw" aria-hidden="true"></i>
-                                        <span class="sr-only">{{ trans('BtnEdit') }}</span>
+                                        <span class="sr-only">{{ trans('Edit') }}</span>
                                     </a>
                                 </td>
 

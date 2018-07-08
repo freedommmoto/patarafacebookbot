@@ -33,3 +33,12 @@
   position: absolute;
   left: -2000px;
 }
+.btn-sm{
+  max-width: 120px;
+  float: right;
+}
+
+.btn_edit{
+  max-width: 100px;
+  float: right;
+}

@@ -9,7 +9,6 @@
 
 
 @section('content')
-    <input type="text" value="{{$callbackUrl}}" id="verify_token_hide" class="form-control" placeholder="Callback URL">
 
     <div class="container">
         <div class="row">
@@ -70,8 +69,10 @@
                             <div class="col-md-9" style="cursor: pointer">
                                 <a href="#" id="copy-url">
                                     <div class="input-group">
-                                        <input type="text" value="{{$callbackUrl}}" id="verify_token"
-                                               class="form-control" disabled>
+                                        <input type="text" value="{{$callbackUrl}}" class="form-control" disabled>
+                                        <input type="text" value="{{$callbackUrl}}" id="verify_token_hide">
+                                        <input type="hidden" value="{{$internal_token}}" id="internal_token" name="internal_token">
+
                                         <div class="input-group-append">
                                             <label for="link" class="input-group-text">
                                                 <i class="fa fa-fw fa-link fa-rotate-90" aria-hidden="true"></i>
@@ -121,24 +122,6 @@
                         </div>
 
                         <hr>
-                        <div class="form-group has-feedback row {{ $errors->has('link') ? ' has-error ' : '' }}">
-                            {!! Form::label('greeting_text', trans('Page Name'), array('class' => 'col-md-3 control-label')); !!}
-                            <div class="col-md-9">
-                                <div class="input-group">
-                                    {!! Form::text('greeting_text', "", array('id' => 'greeting_text', 'class' => 'form-control', 'placeholder' => trans('Page Name'))) !!}
-                                    <div class="input-group-append">
-                                        <label for="link" class="input-group-text">
-                                            <i class="fa fa-fw fa-pencil" aria-hidden="true"></i>
-                                        </label>
-                                    </div>
-                                </div>
-                                @if ($errors->has('greeting_text'))
-                                    <span class="help-block">
-                                            <strong>{{ $errors->first('greeting_text') }}</strong>
-                                        </span>
-                                @endif
-                            </div>
-                        </div>
 
                         <div class="form-group has-feedback row {{ $errors->has('link') ? ' has-error ' : '' }}">
                             {!! Form::label('greeting_text', trans('Welcome Message'), array('class' => 'col-md-3 control-label')); !!}

@@ -27,14 +27,16 @@ class Bots extends model
         'page_key_id',
         'token',
         'greeting_text',
-        'user_id'
+        'user_id',
+        'internal_token',
+        'verify_token'
     ];
 
     public static function rules($id = 0, $merge = [])
     {
         return array_merge(
             [
-                'token' => 'required|min:3|max:150',
+                'token' => 'required|min:3|max:250',
             ],
             $merge);
     }

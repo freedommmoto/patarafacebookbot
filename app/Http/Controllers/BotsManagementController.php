@@ -43,7 +43,10 @@ class BotsManagementController extends Controller
     public function create()
     {
         $key = Auth::user()->id . uniqid();
-        $data = ['callbackUrl' => 'https://patarafacebookbot.herokuapp.com/botman/' . $key];
+        $data = [
+            'callbackUrl' => 'https://patarafacebookbot.herokuapp.com/botman/' . $key,
+            'internal_token' => $key
+        ];
         return view('botsmanagement.add-bots')->with($data);
     }
 
@@ -57,9 +60,7 @@ class BotsManagementController extends Controller
     public function store(Request $request)
     {
         $input = Input::only('token');
-
         $validator = Validator::make($input, Bots::rules());
-
         if ($validator->fails()) {
             return back()->withErrors($validator)->withInput();
         }
@@ -69,6 +70,7 @@ class BotsManagementController extends Controller
             'page_key_id' => 0,
             'token' => $request->input('token'),
             'verify_token' => $request->input('verify_token'),
+            'internal_token' => $request->input('internal_token'),
             'greeting_text' => $request->input('greeting_text'),
             'user_id' => $user_id = Auth::user()->id
         ]);
@@ -105,11 +107,10 @@ class BotsManagementController extends Controller
      */
     public function edit($id)
     {
-        $bots = Bots::find($id);
-
+        $bot = Bots::find($id);
         $data = [
-            'bot' => $bots,
-            //'themeUsers' => $botsUsers,
+            'bot' => $bot,
+            'callbackUrl' => 'https://patarafacebookbot.herokuapp.com/botman/' . $bot->internal_token,
         ];
 
         return view('botsmanagement.edit-theme')->with($data);
@@ -138,7 +139,7 @@ class BotsManagementController extends Controller
 
         $bots->fill($input)->save();
 
-        return redirect('bots/' . $bots->id)->with('success', trans('Success'));
+        return redirect('bots')->with('success', trans('Success'));
     }
 
     /**

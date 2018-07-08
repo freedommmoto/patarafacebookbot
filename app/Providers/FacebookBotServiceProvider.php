@@ -38,16 +38,35 @@ class FacebookBotServiceProvider extends ServiceProvider
             $default_config = config('botman', []);
             $request = app('request');
             $data = $request->all();
-            Log::info('new data');
+            $lastPart = basename(request()->path());
+            Log::info('new data token = ' . $lastPart);
 
             if (isset($data["entry"])) {
                 //log::info(print_r($data["entry"],true));
 
                 if (isset($data["entry"])) {
                     $recipient = $data["entry"][0]['messaging'][0]['recipient']['id'];
-                    $botDetails = Bots::where('page_key_id', $recipient)->first();
-                    config(['page_id' => $recipient, 'bot_id' => $botDetails->id]);
 
+                    //$botDetails = Bots::where('page_key_id', $recipient)->first();
+                    $botDetails = Bots::where('internal_token', $lastPart)->first();
+
+                    try {
+                        $verify_token = '';
+                        if ($botDetails['verify_token'] !== $verify_token) {
+                            //case request is wrong verify_token
+                        }
+
+                        if ((!empty($recipient) && $botDetails->page_key_id < 1)) {
+                            //save page_key_id
+                            $botDetails->page_key_id = $recipient;
+                            $botDetails->save();
+                        }
+                    } catch (\Exception $e) {
+                        //
+                    }
+
+
+                    config(['page_id' => $recipient, 'bot_id' => $botDetails->id]);
                     // check $request to detect if you need to change default parameters
                     // == SET your new config
                     $default_config['facebook']['token'] = $botDetails->token;
@@ -61,8 +80,6 @@ class FacebookBotServiceProvider extends ServiceProvider
             return $botman;
         });
     }
-
-
 
 
 }

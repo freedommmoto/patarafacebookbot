@@ -58,8 +58,6 @@
                         {{ $bot->name }}
                     </h1>
 
-
-
                     <ul class="list-group list-group-responsive bot-details-list margin-bottom-3">
 
                         <li class="list-group-item">

@@ -14,7 +14,7 @@
 |
 */
 
-Route::match(['get', 'post'], '/botman', 'BotManController@handle');
+Route::match(['get', 'post'], '/botman/{token}', 'BotManController@handle');
 Route::get('/botman/tinker', 'BotManController@tinker');
 
 
