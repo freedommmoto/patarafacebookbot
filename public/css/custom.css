@@ -14,3 +14,22 @@
   width: 220px;
   margin: 0 auto;
 }
+.card-header{
+  background: #fff;
+}
+.card-footer{
+  background: #fff;
+}
+.btn-success{
+  max-width: 150px;
+  float: right;
+}
+#copy-url{
+  text-overline: none;
+  cursor: pointer;
+}
+
+#verify_token_hide{
+  position: absolute;
+  left: -2000px;
+}

@@ -30,4 +30,13 @@ class Bots extends model
         'user_id'
     ];
 
+    public static function rules($id = 0, $merge = [])
+    {
+        return array_merge(
+            [
+                'token' => 'required|min:3|max:150',
+            ],
+            $merge);
+    }
+
 }

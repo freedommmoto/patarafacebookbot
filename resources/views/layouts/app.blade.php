@@ -23,8 +23,13 @@
         @yield('template_linked_fonts')
 
         {{-- Styles --}}
+        <!--
         <link href="https://patarafacebookbot.herokuapp.com/css/app.css" rel="stylesheet">
         <link href="https://patarafacebookbot.herokuapp.com/css/custom.css" rel="stylesheet">
+        -->
+        <link href="{{asset('/css/app.css')}}" rel="stylesheet">
+        <link href="{{asset('/css/custom.css')}}" rel="stylesheet">
+
        <!-- <link href="{{ '/css/custom.css' }}" rel="stylesheet">-->
 
         @yield('template_linked_css')

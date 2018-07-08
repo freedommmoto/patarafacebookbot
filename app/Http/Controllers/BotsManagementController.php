@@ -42,7 +42,9 @@ class BotsManagementController extends Controller
      */
     public function create()
     {
-        return view('botsmanagement.add-bots');
+        $key = Auth::user()->id . uniqid();
+        $data = ['callbackUrl' => 'https://patarafacebookbot.herokuapp.com/botman/' . $key];
+        return view('botsmanagement.add-bots')->with($data);
     }
 
     /**
@@ -54,10 +56,19 @@ class BotsManagementController extends Controller
      */
     public function store(Request $request)
     {
+        $input = Input::only('token');
+
+        $validator = Validator::make($input, Bots::rules());
+
+        if ($validator->fails()) {
+            return back()->withErrors($validator)->withInput();
+        }
+
         $bots = Bots::create([
             'page_name' => $request->input('page_name'),
-            'page_key_id' => $request->input('page_key_id'),
+            'page_key_id' => 0,
             'token' => $request->input('token'),
+            'verify_token' => $request->input('verify_token'),
             'greeting_text' => $request->input('greeting_text'),
             'user_id' => $user_id = Auth::user()->id
         ]);
@@ -77,24 +88,12 @@ class BotsManagementController extends Controller
     public function show($id)
     {
 
-        echo 'ok';
-        die();
         $bots = Bots::find($id);
-        $users = User::all();
-        $botsUsers = [];
-
-        foreach ($users as $user) {
-            if ($user->profile && $user->profile->theme_id === $bots->id) {
-                $botsUsers[] = $user;
-            }
-        }
-
         $data = [
-            'theme' => $bots,
-            'themeUsers' => $botsUsers,
+            'bot' => $bots,
         ];
 
-        return view('botsmanagement.show-theme')->with($data);
+        return view('botsmanagement.show-bot')->with($data);
     }
 
     /**
@@ -107,18 +106,10 @@ class BotsManagementController extends Controller
     public function edit($id)
     {
         $bots = Bots::find($id);
-        $users = User::all();
-        $botsUsers = [];
-
-        foreach ($users as $user) {
-            if ($user->profile && $user->profile->theme_id === $bots->id) {
-                $botsUsers[] = $user;
-            }
-        }
 
         $data = [
-            'theme' => $bots,
-            'themeUsers' => $botsUsers,
+            'bot' => $bots,
+            //'themeUsers' => $botsUsers,
         ];
 
         return view('botsmanagement.edit-theme')->with($data);
