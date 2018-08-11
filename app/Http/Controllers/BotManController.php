@@ -18,6 +18,8 @@ use BotMan\BotMan\Storages\Drivers\FileStorage;
 use App\Models\Bots;
 use App\Models\Cards;
 
+use Storage;
+
 class BotManController extends Controller
 {
     /**

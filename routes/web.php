@@ -17,6 +17,7 @@
 Route::match(['get', 'post'], '/botman/{token}', 'BotManController@handle');
 Route::get('/botman/tinker', 'BotManController@tinker');
 
+Route::get('/test', 'FileController@testUploadToAWS');
 
 // Homepage Route
 //Route::get('/', 'WelcomeController@welcome')->name('welcome');
