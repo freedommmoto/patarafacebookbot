@@ -1,6 +1,6 @@
 # FaceBook Chat Bot with Laravel and Botman
 
-## Contact : m.c.lmitl@gmail.com
+## Contact : m.c.kmitl@gmail.com
 > 
 used token and send return welcome message.
 project url: https://patarafacebookbot.herokuapp.com
